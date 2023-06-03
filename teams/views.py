@@ -18,11 +18,11 @@ class TeamView(APIView):
     try:
       data_processing(request.data)
     except NegativeTitlesError as error:
-      return Response({'error': f'{error.message}'}, status.HTTP_400_BAD_REQUEST)
+      return Response({'error': f'{error.args[0]}'}, status.HTTP_400_BAD_REQUEST)
     except InvalidYearCupError as error:
-      return Response({'error': f'{error.message}'}, status.HTTP_400_BAD_REQUEST)
+      return Response({'error': f'{error.args[0]}'}, status.HTTP_400_BAD_REQUEST)
     except ImpossibleTitlesError as error:
-      return Response({'error': f'{error.message}'}, status.HTTP_400_BAD_REQUEST)
+      return Response({'error': f'{error.args[0]}'}, status.HTTP_400_BAD_REQUEST)
 
     team = Team.objects.create(**request.data)
 
